@@ -9,12 +9,17 @@ process.stdin.on('data', (data) => {
   const [cmd, filename] = command.split(' ');
 
   if (cmd === 'pwd') {
-    pwd();
+    pwd(done);
   } else if (cmd === 'ls') {
-    ls();
+    ls(done);
   } else if (cmd === 'cat') {
-    cat(filename);
+    cat(filename, done);
   } else if (cmd === 'curl') {
-    curl(filename);
+    curl(filename, done);
   }
 });
+
+const done = (output) => {
+  process.stdout.write(output);
+  process.stdout.write(`\nprompt > `);
+};
